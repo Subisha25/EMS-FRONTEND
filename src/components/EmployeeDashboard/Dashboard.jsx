@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { FaUserCheck, FaUserTimes, FaChartPie, FaBullhorn } from 'react-icons/fa';
-import Modal from '../components/Modal';
+import { FaUserCheck, FaUserTimes, FaBullhorn } from 'react-icons/fa';
+import Modal from '../EmployeeDashboard/Modal';
+import { useParams } from 'react-router-dom';
 
-const userName = 'Ruso';
-const announcements = [
-  'HR: Submit your timesheet by 5 PM today.',
-  'Admin: Office will be closed on Friday for maintenance.'
-];
+function EmployeeDashboard() {
+  const { emp_id } = useParams(); // 👈 GET emp_id from URL
+  const user = JSON.parse(localStorage.getItem('user'));
+  const userName = user?.name || 'Employee'; // use localStorage name
 
-function Dashboard() {
+  const announcements = [
+    'HR: Submit your timesheet by 5 PM today.',
+    'Admin: Office will be closed on Friday for maintenance.'
+  ];
+
   const [dateTime, setDateTime] = useState(new Date());
   const [lastAttendance, setLastAttendance] = useState('You marked present at 9:15 AM today');
   const [showModal, setShowModal] = useState(false);
@@ -30,7 +34,6 @@ function Dashboard() {
     setShowModal(false);
   };
 
-  // Pie chart SVG (static)
   const presentPercent = (attendanceSummary.present / attendanceSummary.total) * 100;
   const absentPercent = (attendanceSummary.absent / attendanceSummary.total) * 100;
 
@@ -47,6 +50,7 @@ function Dashboard() {
           </div>
         </div>
       )}
+
       {/* Welcome and Date/Time */}
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold flex items-center gap-2">
@@ -56,6 +60,7 @@ function Dashboard() {
           {dateTime.toLocaleDateString()} {dateTime.toLocaleTimeString()}
         </div>
       </div>
+
       {/* Mark Attendance */}
       <div className="flex gap-4">
         <button
@@ -71,11 +76,13 @@ function Dashboard() {
           <FaUserTimes /> Mark Absent
         </button>
       </div>
+
       {/* Last Attendance Summary */}
       <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded text-blue-800 font-semibold">
         {lastAttendance}
       </div>
-      {/* Attendance Summary Card */}
+
+      {/* Attendance Summary */}
       <div className="flex items-center gap-6 bg-white rounded-lg shadow p-6 max-w-md">
         <div className="relative w-24 h-24">
           <svg viewBox="0 0 36 36" className="w-full h-full">
@@ -104,10 +111,13 @@ function Dashboard() {
         </div>
         <div>
           <div className="font-semibold text-lg">Attendance This Month</div>
-          <div className="text-gray-600">{attendanceSummary.present} days present / {attendanceSummary.total} days</div>
+          <div className="text-gray-600">
+            {attendanceSummary.present} days present / {attendanceSummary.total} days
+          </div>
         </div>
       </div>
-      {/* Modal for confirmation */}
+
+      {/* Modal */}
       <Modal
         isOpen={showModal}
         title={`Confirm Mark ${attendanceAction === 'present' ? 'Present' : 'Absent'}?`}
@@ -121,4 +131,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard; 
+export default EmployeeDashboard;

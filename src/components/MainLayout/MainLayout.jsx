@@ -86,6 +86,12 @@ import LeaveRequestTable from '../LeaveManagement/NewLeaveRequest';
 import LeaveRequestDetails from '../LeaveManagement/LeaveRequestFrom';
 import LeaveManagement from '../LeaveManagement/LeaveManagement';
 import Attendance from '../Attendance/Attendance';
+import AdminEmployeeEdit from '../AdminEmployeeDetails/AdminEmployeeUpdate';
+import EmployeeDashboard from '../EmployeeDashboard/Dashboard';
+import EmployeeProfile from '../EmployeeDashboard/EmployeeProfile';
+import PaySlip from '../EmployeeDashboard/PaySlip';
+import EmployeeLeaveManagement from '../EmployeeDashboard/LeaveManagement';
+import EditProfilePage from '../AdminProfile/EditProfileModal';
 
 export default function MainLayout() {
   return (
@@ -112,6 +118,14 @@ export default function MainLayout() {
             <Route path="leave-details" element={<LeaveRequestDetails />} />
             <Route path="all-leaves" element={<LeaveManagement />} />
             <Route path="attendance" element={<Attendance />} />
+             <Route path="employeedashboard/:emp_id" element={<EmployeeDashboard />} />
+             <Route path="employeepayslip" element={<PaySlip />} />
+             <Route path="employeeleavemanage" element={<EmployeeLeaveManagement />} />
+             <Route path="employeeprofile" element={<EmployeeProfile />} />
+             <Route path="edit-profile" element={<EditProfilePage />} />
+
+<Route path="adminemployeeprofile/:emp_id" element={<AdminEmployeeProfile />} />
+<Route path="admin/employee/:emp_id/edit" element={<AdminEmployeeEdit />} />
 
             <Route path="*" element={<div>Coming Soon...</div>} />
           </Routes>

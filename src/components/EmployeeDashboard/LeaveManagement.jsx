@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaCalendarAlt, FaTrashAlt } from 'react-icons/fa';
-import Modal from '../components/Modal';
+import Modal from '../EmployeeDashboard/Modal';
 
 const initialLeaves = [
   { id: 1, type: 'Casual', from: '2024-07-01', to: '2024-07-02', reason: 'Family event', status: 'Approved' },
@@ -9,7 +9,7 @@ const initialLeaves = [
 ];
 const leaveBalance = { Casual: { used: 6, total: 10 }, Sick: { used: 3, total: 5 }, Earned: { used: 2, total: 5 } };
 
-function LeaveManagement() {
+function EmployeeLeaveManagement() {
   const [leaves, setLeaves] = useState(initialLeaves);
   const [form, setForm] = useState({ type: 'Casual', from: '', to: '', reason: '' });
   const [showModal, setShowModal] = useState(false);
@@ -136,4 +136,4 @@ function LeaveManagement() {
   );
 }
 
-export default LeaveManagement; 
+export default EmployeeLeaveManagement; 
