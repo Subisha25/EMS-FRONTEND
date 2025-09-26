@@ -1,97 +1,34 @@
-// import React, { useState } from 'react';
-// import Sidebar from '../Home/Sidebar';
-// import Topbar from '../Home/Topbar';
-// import Dashboard from '../Dashboard/Dashboard';
-// import AddEmployeeForm from '../AdminEmployeeManagement/AddEmployee/AddEmployee';
-// import EmployeeList from '../AdminEmployeeManagement/EmployeeList/EmployeeList';
-// import SalaryStatusForm from '../Salary/SalaryForm';
-// import ManageSalary from '../Salary/ManageSalary';
-// import AdminProfile from '../AdminProfile/AdminProfile';
-// import AdminEmployeeProfile from '../AdminEmployeeDetails/AdminEmployee';
-// import LeaveRequestTable from '../LeaveManagement/NewLeaveRequest';
-// import LeaveRequestDetails from '../LeaveManagement/LeaveRequestFrom';
-// import LeaveManagement from '../LeaveManagement/LeaveManagement';
-
-// export default function MainLayout() {
-//   const [activeMenu, setActiveMenu] = useState('Dashboard');
-//   const [selectedEmployee, setSelectedEmployee] = useState(null);
-
-//   const handleViewOrEditEmployee = (employee) => {
-//     setSelectedEmployee(employee);
-//     setActiveMenu('adminemployeeprofile');
-//   };
-
-//   const renderContent = () => {
-//     switch (activeMenu) {
-//       case 'Dashboard':
-//         return <Dashboard />;
-//       case 'AddEmployee':
-//         return <AddEmployeeForm />;
-//       case 'ManageEmployee':
-//         return <EmployeeList onViewOrEdit={handleViewOrEditEmployee} />;
-//       case 'AddSalary':
-//         return <SalaryStatusForm />;
-//       case 'ManageSalary':
-//         return <ManageSalary />;
-//       case 'adminprofile':
-//         return <AdminProfile />;
-//       case 'adminemployeeprofile':
-//         return <AdminEmployeeProfile employee={selectedEmployee} />;
-
-//        case 'NewLeaveRequests':
-//   return <LeaveRequestTable setActiveMenu={setActiveMenu} />;
-
-//          case 'NewLeavedetails':
-//         return <LeaveRequestDetails setActiveMenu={setActiveMenu}/>;
-//           case 'AllLeaveDetails':
-//         return <LeaveManagement />;
-//       // default:
-//         return <div className="p-6">Coming Soon...</div>;
-//     }
-//   };
-
-//   return (
-//     <div className="flex h-screen overflow-hidden">
-//       <div className="fixed z-10">
-//         <Sidebar activeMenu={activeMenu} setActiveMenu={setActiveMenu} />
-//       </div>
-
-//       <div className="ml-64 flex-1 flex flex-col">
-//         <div className="sticky top-0 z-20">
-//           <Topbar />
-//         </div>
-
-//         <div className="flex-1 overflow-y-auto bg-gray-50 p-6">
-//           {renderContent()}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 import React from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-
 import Sidebar from '../Home/Sidebar';
 import Topbar from '../Home/Topbar';
-
-import Dashboard from '../Dashboard/Dashboard';
+import AdminDashboard from '../Admin/AdminDashboard/AdminDashboard';
 import AddEmployeeForm from '../AdminEmployeeManagement/AddEmployee/AddEmployee';
 import EmployeeList from '../AdminEmployeeManagement/EmployeeList/EmployeeList';
-import SalaryStatusForm from '../Salary/SalaryForm';
-import ManageSalary from '../Salary/ManageSalary';
-import AdminProfile from '../AdminProfile/AdminProfile';
-import AdminEmployeeProfile from '../AdminEmployeeDetails/AdminEmployee';
-import LeaveRequestTable from '../LeaveManagement/NewLeaveRequest';
-import LeaveRequestDetails from '../LeaveManagement/LeaveRequestFrom';
-import LeaveManagement from '../LeaveManagement/LeaveManagement';
-import Attendance from '../Attendance/Attendance';
-import AdminEmployeeEdit from '../AdminEmployeeDetails/AdminEmployeeUpdate';
-import EmployeeDashboard from '../EmployeeDashboard/Dashboard';
-import EmployeeProfile from '../EmployeeDashboard/EmployeeProfile';
-import PaySlip from '../EmployeeDashboard/PaySlip';
-import EmployeeLeaveManagement from '../EmployeeDashboard/LeaveManagement';
-import EditProfilePage from '../AdminProfile/EditProfileModal';
+import SalaryStatusForm from '../Admin/Salary/SalaryForm';
+import ManageSalary from '../Admin/Salary/ManageSalary';
+import AdminProfile from '../Admin/AdminProfile/AdminProfile';
+import AdminEmployeeProfile from '../Admin/AdminEmployeeDetails/AdminEmployee';
+import LeaveRequestTable from '../Admin/LeaveManagement/NewLeaveRequest';
+import LeaveRequestDetails from '../Admin/LeaveManagement/LeaveRequestFrom';
+import LeaveManagement from '../Admin/LeaveManagement/LeaveManagement';
+import Attendance from '../Admin/Attendance/Attendance';
+import EmployeeDashboard from '../Employees/EmployeeDashboard/EmployeeDashboard';
+import PaySlip from '../Employees/EmployeeDashboard/PaySlip';
+import EmployeeLeaveManagement from '../Employees/EmployeeDashboard/EmployeeLeaveManagement';
+import EmployeeProfile from '../Employees/EmployeeDashboard/EmployeeProfile';
+import EditProfilePage from '../Admin/AdminProfile/EditProfileModal';
+import EmployeeAttendance from '../Employees/EmployeeDashboard/EmployeeAttendance';
+import AdminEmployeeEdit from '../Admin/AdminEmployeeDetails/AdminEmployeeUpdate';
+import PayslipDetails from '../Admin/Salary/SalaryDetails';
+import LeaveStatus from '../Employees/EmployeeDashboard/LeaveStatus';
+import EditEmployee from '../Employees/EmployeeDashboard/EditEmployee';
+import ForgetPassword from '../ForgetPassword';
+import TrashedEmployeeList from '../AdminEmployeeManagement/EmployeeList/TrashedEmployee';
+import HolidayCalendar from '../Home/Calendar';
+import TaskManagement from '../Admin/task/AdminTask';
+
+
 
 export default function MainLayout() {
   return (
@@ -100,14 +37,15 @@ export default function MainLayout() {
         <Sidebar />
       </div>
 
-      <div className="ml-64 flex-1 flex flex-col">
+      <div className="ml-[20%] flex-1 flex flex-col">
         <div className="sticky top-0 z-20">
           <Topbar />
         </div>
 
-        <div className="flex-1 overflow-y-auto bg-gray-50 p-6">
+        <div className="flex-1 overflow-y-auto bg-white-50 p-12">
           <Routes>
-            <Route path="dashboard" element={<Dashboard />} />
+            
+            <Route path="dashboard" element={<AdminDashboard/>} />
             <Route path="add-employee" element={<AddEmployeeForm />} />
             <Route path="manage-employee" element={<EmployeeList />} />
             <Route path="add-salary" element={<SalaryStatusForm />} />
@@ -118,11 +56,19 @@ export default function MainLayout() {
             <Route path="leave-details" element={<LeaveRequestDetails />} />
             <Route path="all-leaves" element={<LeaveManagement />} />
             <Route path="attendance" element={<Attendance />} />
-             <Route path="employeedashboard/:emp_id" element={<EmployeeDashboard />} />
+            <Route path="employeedashboard" element={<EmployeeDashboard />} />
              <Route path="employeepayslip" element={<PaySlip />} />
              <Route path="employeeleavemanage" element={<EmployeeLeaveManagement />} />
              <Route path="employeeprofile" element={<EmployeeProfile />} />
              <Route path="edit-profile" element={<EditProfilePage />} />
+             <Route path="employeeattendance" element={<EmployeeAttendance />} />
+             <Route path="payslipdetails/:employeeId" element={<PayslipDetails/>} />
+             <Route path="leavestatus" element={<LeaveStatus/>} />
+             <Route path="editemployee" element={<EditEmployee/>} />
+             <Route path="forgetpassword" element={<ForgetPassword/>} />
+             <Route path="/unavailable-employee" element={<TrashedEmployeeList/>} />
+             <Route path="/holidaycalendar" element={<HolidayCalendar/>} />
+             <Route path="/task-management" element={<TaskManagement/>} />
 
 <Route path="adminemployeeprofile/:emp_id" element={<AdminEmployeeProfile />} />
 <Route path="admin/employee/:emp_id/edit" element={<AdminEmployeeEdit />} />

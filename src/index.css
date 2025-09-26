@@ -14,7 +14,45 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer utilities {
+  .scrollbar-thin-yellow {
+    scrollbar-width: thin;
+    scrollbar-color: #01015c transparent; /* For Firefox */
 
+    &::-webkit-scrollbar {
+      height: 1px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #000080; /* Navy blue */
+      border-radius: 10px;
+    }
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin-navy {
+    scrollbar-width: thin;
+    scrollbar-color: #000080 transparent; /* For Firefox */
+
+    &::-webkit-scrollbar {
+      height: 1px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #000080; /* Navy blue */
+      border-radius: 10px;
+    }
+  }
+}
 
 /* Add to your index.css or App.css */
 .scrollbar-hide::-webkit-scrollbar {

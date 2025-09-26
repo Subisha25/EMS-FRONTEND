@@ -2,22 +2,22 @@
 // import { FaEye, FaTrash } from 'react-icons/fa';
 // import axios from 'axios';
 // import { useNavigate } from 'react-router-dom';
-// import { showSuccess, showError } from '../../utils/toast'; 
+// import { showSuccess, showError } from '../../utils/toast'; // ✅ adjust path
+// import { MdSettingsBackupRestore } from "react-icons/md";
 // import API from '../../../utils/api';
 
 // // const API_BASE = API;
 
-// const EmployeeList = () => {
+// const TrashedEmployeeList = () => {
 //   const [employees, setEmployees] = useState([]);
 //   const [searchTerm, setSearchTerm] = useState(""); 
 //   const [currentPage, setCurrentPage] = useState(1); 
 //   const recordsPerPage = 10;
 //   const navigate = useNavigate();
 
-//   // Fetch employees
-//   const fetchEmployees = async () => {
+//  const fetchEmployees = async () => {
 //     try {
-//       const res = await API.get(`api/employee/getavailable.php`);
+//       const res = await API.get(`api/employee/getunavailable.php`);
 //       setEmployees(res.data);
 //     } catch (err) {
 //       console.error('Error fetching employees:', err);
@@ -27,20 +27,20 @@
 
 //   // Delete employee
 //   const deleteEmployee = async (id) => {
-//     if (window.confirm('Are you sure you want to delete this employee?')) {
+//     if (window.confirm(' Are you sure you want to restore this employee?')) {
 //       try {
-//         const res = await API.post(`api/employee/delete.php`, { id });
+//         const res = await API.post(`api/employee/restore.php`, { id });
 //         if (res.data && res.data.status === true) {
-//           showSuccess('Employee deleted successfully!');
+//           showSuccess(' Employee Restored successfully!');
 //           fetchEmployees();
 //           navigate("/mainlayout/unavailable-employee");
 
 //         } else {
-//           showError(res.data?.message || 'Failed to delete employee.');
+//           showError(res.data?.message || 'Failed to Restore employee.');
 //         }
 //       } catch (err) {
 //         console.error('Delete error:', err);
-//         showError('Something went wrong while deleting.');
+//         showError('Something went wrong while Restoring.');
 //       }
 //     }
 //   };
@@ -49,8 +49,8 @@
 //     fetchEmployees();
 //   }, []);
 
-//   // ✅ Filter employees by searchTerm (emp_id, name, email)
-//   const filteredEmployees = employees.filter(emp => {
+
+//    const filteredEmployees = employees.filter(emp => {
 //     const fullName = `${emp.first_name} ${emp.last_name}`.toLowerCase();
 //     return (
 //       emp.emp_id.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -59,17 +59,17 @@
 //     );
 //   });
 
-//   // ✅ Pagination logic
-//   const indexOfLastRecord = currentPage * recordsPerPage;
-//   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-//   const currentRecords = filteredEmployees.slice(indexOfFirstRecord, indexOfLastRecord);
-//   const totalPages = Math.ceil(filteredEmployees.length / recordsPerPage);
+// // ✅ Pagination after filtering
+// const indexOfLastRecord = currentPage * recordsPerPage;
+// const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+// const currentRecords = filteredEmployees.slice(indexOfFirstRecord, indexOfLastRecord);
+// const totalPages = Math.ceil(filteredEmployees.length / recordsPerPage);
+
 
 //   return (
 //     <div className="max-w-7xl mx-auto p-6">
 //       <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Employee List</h2>
-
-//       {/* ✅ Top bar with Search (left) and Trashed Entries (right) */}
+//  {/* ✅ Top bar with Search (left) and Trashed Entries (right) */}
 //       <div className="flex justify-between items-center mb-4">
 //         {/* Search Box */}
 //         <input
@@ -82,14 +82,13 @@
 
 //         {/* Trashed Entries Button */}
 //         <button
-//           onClick={() => navigate("/mainlayout/unavailable-employee")}
+//           onClick={() => navigate("/mainlayout/manage-employee")}
 //           className="bg-[#101c3d] text-white px-4 py-2 rounded-md shadow "
 //         >
-//           Trashed Entries
+//          Active Entries
 //         </button>
 //       </div>
 
-//       {/* Employee Table */}
 //       <div className="overflow-x-auto shadow-lg rounded-xl">
 //         <table className="min-w-full bg-white rounded-xl">
 //           <thead className="bg-[#101c3d] text-white">
@@ -102,39 +101,30 @@
 //               <th className="text-center py-3 px-4">Actions</th>
 //             </tr>
 //           </thead>
-//           <tbody>
-//             {currentRecords.map((emp, index) => (
-//               <tr
-//                 key={emp.id}
-//                 className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}
-//               >
-//                 <td className="py-3 px-4">{emp.emp_id}</td>
-//                 <td className="py-3 px-4">{emp.first_name} {emp.last_name}</td>
-//                 <td className="py-3 px-4">{emp.designation}</td>
-//                 <td className="py-3 px-4">{emp.email}</td>
-//                 <td className="py-3 px-4">{emp.mobile}</td>
-//                 <td className="py-3 px-4 flex flex-wrap justify-center gap-3">
-//                   {/* View */}
-//                   <button
-//                     className="text-blue-600 hover:text-blue-800"
-//                     title="View"
-//                     onClick={() => navigate(`/mainlayout/adminemployeeprofile/${emp.emp_id}`)}
-//                   >
-//                     <FaEye />
-//                   </button>
+//         <tbody>
+//   {currentRecords.map((emp, index) => (
+//     <tr
+//       key={emp.id}
+//       className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}
+//     >
+//       <td className="py-3 px-4">{emp.emp_id}</td>
+//       <td className="py-3 px-4">{emp.first_name} {emp.last_name}</td>
+//       <td className="py-3 px-4">{emp.designation}</td>
+//       <td className="py-3 px-4">{emp.email}</td>
+//       <td className="py-3 px-4">{emp.mobile}</td>
+//       <td className="py-3 px-4 flex flex-wrap justify-center gap-3">
+//         <button
+//           className="text-green-600 hover:text-green-800 font-bold text-2xl"
+//           title="Restore"
+//           onClick={() => deleteEmployee(emp.id)}
+//         >
+//           <MdSettingsBackupRestore />
+//         </button>
+//       </td>
+//     </tr>
+//   ))}
+// </tbody>
 
-//                   {/* Delete */}
-//                   <button
-//                     className="text-red-600 hover:text-red-800"
-//                     title="Delete"
-//                     onClick={() => deleteEmployee(emp.id)}
-//                   >
-//                     <FaTrash />
-//                   </button>
-//                 </td>
-//               </tr>
-//             ))}
-//           </tbody>
 //         </table>
 //       </div>
 
@@ -176,30 +166,31 @@
 //   );
 // };
 
-// export default EmployeeList;
+// export default TrashedEmployeeList;
 
 import React, { useEffect, useState } from 'react';
-import { FaEye, FaTrash, FaExclamationTriangle, FaTimes } from 'react-icons/fa';
+import { FaEye, FaTrash, FaTimes, FaCheckCircle } from 'react-icons/fa';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { showSuccess, showError } from '../../utils/toast'; 
+import { showSuccess, showError } from '../../utils/toast';
+import { MdSettingsBackupRestore } from "react-icons/md";
 import API from '../../../utils/api';
 
-// Custom Confirmation Modal Component
-const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm, employeeName, loading }) => {
+// Custom Restore Confirmation Modal Component
+const RestoreConfirmationModal = ({ isOpen, onClose, onConfirm, employeeName, loading }) => {
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 transform transition-all duration-300 scale-100">
         {/* Header */}
-        <div className="bg-gradient-to-r from-red-500 to-red-600 text-white p-6 rounded-t-2xl">
+        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-t-2xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="bg-white bg-opacity-20 p-2 rounded-full">
-                <FaExclamationTriangle className="text-2xl" />
+                <MdSettingsBackupRestore className="text-2xl" />
               </div>
-              <h3 className="text-xl font-bold">Confirm Delete</h3>
+              <h3 className="text-xl font-bold">Restore Employee</h3>
             </div>
             <button
               onClick={onClose}
@@ -214,18 +205,18 @@ const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm, employeeName, loa
         {/* Body */}
         <div className="p-6">
           <div className="text-center mb-6">
-            <div className="bg-red-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <FaTrash className="text-red-500 text-3xl" />
+            <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <MdSettingsBackupRestore className="text-green-500 text-3xl" />
             </div>
             <p className="text-gray-700 text-lg mb-2">
-              Are you sure you want to delete
+              Are you sure you want to restore
             </p>
             <p className="font-bold text-xl text-gray-800 mb-4">
               {employeeName}?
             </p>
-            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
-              <p className="text-yellow-800 text-sm">
-                <strong>Warning:</strong> This action cannot be undone. The employee will be moved to trash.
+            <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+              <p className="text-blue-800 text-sm">
+                <strong>Info:</strong> This employee will be moved back to the active employee list and will regain access to the system.
               </p>
             </div>
           </div>
@@ -243,17 +234,17 @@ const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm, employeeName, loa
           <button
             onClick={onConfirm}
             disabled={loading}
-            className="px-6 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 font-medium shadow-lg transform hover:scale-105 disabled:opacity-50 disabled:transform-none flex items-center space-x-2"
+            className="px-6 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 font-medium shadow-lg transform hover:scale-105 disabled:opacity-50 disabled:transform-none flex items-center space-x-2"
           >
             {loading ? (
               <>
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                <span>Deleting...</span>
+                <span>Restoring...</span>
               </>
             ) : (
               <>
-                <FaTrash />
-                <span>Delete</span>
+                <MdSettingsBackupRestore />
+                <span>Restore</span>
               </>
             )}
           </button>
@@ -263,20 +254,19 @@ const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm, employeeName, loa
   );
 };
 
-const EmployeeList = () => {
+const TrashedEmployeeList = () => {
   const [employees, setEmployees] = useState([]);
   const [searchTerm, setSearchTerm] = useState(""); 
   const [currentPage, setCurrentPage] = useState(1); 
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showRestoreModal, setShowRestoreModal] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
-  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [restoreLoading, setRestoreLoading] = useState(false);
   const recordsPerPage = 10;
   const navigate = useNavigate();
 
-  // Fetch employees
   const fetchEmployees = async () => {
     try {
-      const res = await API.get(`api/employee/getavailable.php`);
+      const res = await API.get(`api/employee/getunavailable.php`);
       setEmployees(res.data);
     } catch (err) {
       console.error('Error fetching employees:', err);
@@ -284,41 +274,40 @@ const EmployeeList = () => {
     }
   };
 
-  // Handle delete click
-  const handleDeleteClick = (employee) => {
+  // Handle restore click
+  const handleRestoreClick = (employee) => {
     setSelectedEmployee(employee);
-    setShowDeleteModal(true);
+    setShowRestoreModal(true);
   };
 
-  // Confirm delete
-  const confirmDelete = async () => {
+  // Confirm restore
+  const confirmRestore = async () => {
     if (!selectedEmployee) return;
 
-    setDeleteLoading(true);
+    setRestoreLoading(true);
     try {
-      const res = await API.post(`api/employee/delete.php`, { id: selectedEmployee.id });
+      const res = await API.post(`api/employee/restore.php`, { id: selectedEmployee.id });
       if (res.data && res.data.status === true) {
-        showSuccess(`${selectedEmployee.first_name} ${selectedEmployee.last_name} deleted successfully!`);
+        showSuccess(`${selectedEmployee.first_name} ${selectedEmployee.last_name} restored successfully!`);
         fetchEmployees();
-        setShowDeleteModal(false);
+        setShowRestoreModal(false);
         setSelectedEmployee(null);
-        // Optional: Navigate to trashed entries
-        navigate("/mainlayout/unavailable-employee");
+        navigate("/mainlayout/manage-employee");
       } else {
-        showError(res.data?.message || 'Failed to delete employee.');
+        showError(res.data?.message || 'Failed to restore employee.');
       }
     } catch (err) {
-      console.error('Delete error:', err);
-      showError('Something went wrong while deleting.');
+      console.error('Restore error:', err);
+      showError('Something went wrong while restoring.');
     } finally {
-      setDeleteLoading(false);
+      setRestoreLoading(false);
     }
   };
 
-  // Cancel delete
-  const cancelDelete = () => {
-    if (!deleteLoading) {
-      setShowDeleteModal(false);
+  // Cancel restore
+  const cancelRestore = () => {
+    if (!restoreLoading) {
+      setShowRestoreModal(false);
       setSelectedEmployee(null);
     }
   };
@@ -327,7 +316,6 @@ const EmployeeList = () => {
     fetchEmployees();
   }, []);
 
-  // ✅ Filter employees by searchTerm (emp_id, name, email)
   const filteredEmployees = employees.filter(emp => {
     const fullName = `${emp.first_name} ${emp.last_name}`.toLowerCase();
     return (
@@ -337,7 +325,7 @@ const EmployeeList = () => {
     );
   });
 
-  // ✅ Pagination logic
+  // Pagination after filtering
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const currentRecords = filteredEmployees.slice(indexOfFirstRecord, indexOfLastRecord);
@@ -345,9 +333,9 @@ const EmployeeList = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-6">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Employee List</h2>
-
-      {/* ✅ Top bar with Search (left) and Trashed Entries (right) */}
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Trashed Employee List</h2>
+      
+      {/* Top bar with Search (left) and Active Entries (right) */}
       <div className="flex justify-between items-center mb-4">
         {/* Search Box */}
         <input
@@ -358,12 +346,12 @@ const EmployeeList = () => {
           className="w-1/3 px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-        {/* Trashed Entries Button */}
+        {/* Active Entries Button */}
         <button
-          onClick={() => navigate("/mainlayout/unavailable-employee")}
+          onClick={() => navigate("/mainlayout/manage-employee")}
           className="bg-[#101c3d] text-white px-4 py-2 rounded-md shadow hover:bg-opacity-90 transition-colors"
         >
-          Trashed Entries
+          Active Entries
         </button>
       </div>
 
@@ -381,42 +369,40 @@ const EmployeeList = () => {
             </tr>
           </thead>
           <tbody>
-            {currentRecords.map((emp, index) => (
-              <tr
-                key={emp.id}
-                className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}
-              >
-                <td className="py-3 px-4">{emp.emp_id}</td>
-                <td className="py-3 px-4">{emp.first_name} {emp.last_name}</td>
-                <td className="py-3 px-4">{emp.designation}</td>
-                <td className="py-3 px-4">{emp.email}</td>
-                <td className="py-3 px-4">{emp.mobile}</td>
-                <td className="py-3 px-4 flex flex-wrap justify-center gap-3">
-                  {/* View */}
-                  <button
-                    className="text-blue-600 hover:text-blue-800 p-2 rounded-full hover:bg-blue-50 transition-all"
-                    title="View Employee"
-                    onClick={() => navigate(`/mainlayout/adminemployeeprofile/${emp.emp_id}`)}
-                  >
-                    <FaEye size={16} />
-                  </button>
-
-                  {/* Delete */}
-                  <button
-                    className="text-red-600 hover:text-red-800 p-2 rounded-full hover:bg-red-50 transition-all"
-                    title="Delete Employee"
-                    onClick={() => handleDeleteClick(emp)}
-                  >
-                    <FaTrash size={16} />
-                  </button>
+            {currentRecords.length === 0 ? (
+              <tr>
+                <td colSpan="6" className="py-8 text-center text-gray-500">
+                  {searchTerm ? 'No employees found matching your search.' : 'No trashed employees found.'}
                 </td>
               </tr>
-            ))}
+            ) : (
+              currentRecords.map((emp, index) => (
+                <tr
+                  key={emp.id}
+                  className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}
+                >
+                  <td className="py-3 px-4">{emp.emp_id}</td>
+                  <td className="py-3 px-4">{emp.first_name} {emp.last_name}</td>
+                  <td className="py-3 px-4">{emp.designation}</td>
+                  <td className="py-3 px-4">{emp.email}</td>
+                  <td className="py-3 px-4">{emp.mobile}</td>
+                  <td className="py-3 px-4 flex flex-wrap justify-center gap-3">
+                    <button
+                      className="text-green-600 hover:text-green-800 p-2 rounded-full hover:bg-green-50 transition-all"
+                      title="Restore Employee"
+                      onClick={() => handleRestoreClick(emp)}
+                    >
+                      <MdSettingsBackupRestore size={20} />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
 
-      {/* ✅ Pagination Controls */}
+      {/* Pagination Controls */}
       {totalPages > 1 && (
         <div className="flex justify-center items-center mt-6 space-x-2">
           <button
@@ -451,16 +437,16 @@ const EmployeeList = () => {
         </div>
       )}
 
-      {/* Delete Confirmation Modal */}
-      <DeleteConfirmationModal
-        isOpen={showDeleteModal}
-        onClose={cancelDelete}
-        onConfirm={confirmDelete}
+      {/* Restore Confirmation Modal */}
+      <RestoreConfirmationModal
+        isOpen={showRestoreModal}
+        onClose={cancelRestore}
+        onConfirm={confirmRestore}
         employeeName={selectedEmployee ? `${selectedEmployee.first_name} ${selectedEmployee.last_name}` : ''}
-        loading={deleteLoading}
+        loading={restoreLoading}
       />
     </div>
   );
 };
 
-export default EmployeeList;
+export default TrashedEmployeeList;
